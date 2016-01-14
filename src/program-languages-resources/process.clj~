@@ -1,0 +1,5 @@
+(ns program-languages-resources.process
+  (:require [clojure.data.json :as json]))
+
+(def data-source "resources/data/programming-languages-resources.csv")
+
