@@ -23,10 +23,10 @@
   (pr-str langs-info))
 
 (defn get-all-names [langs-info]
-  (json/write-str (map :name langs-info)))
+  (pr-str (map :name langs-info)))
 
 (defn get-by-name [name langs-info]
-  (json/write-str
+  (pr-str
    (filter #(= name (:name %))
            langs-info)))
 
