@@ -1,9 +1,15 @@
+## POTION-MAKING
 ###Programming language resources
 
-Minimal CLojure app deployed to Heroku
+Minimal Clojure api deployed to Heroku: https://potion-making.herokuapp.com/
+
+try:
+* http://potion-making.herokuapp.com/all-names
+* http://potion-making.herokuapp.com/all-data
+* http://potion-making.herokuapp.com/get-by-name?input=Python
 
 
-#### Documentation
+________________________
 
 For more information about using Clojure on Heroku, see these Dev Center articles:
 
