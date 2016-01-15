@@ -20,12 +20,14 @@
     (io/file
      "resources/data/programming-languages-resources.edn"))))
 
-(defn get-all-data [langs-info]
-  (pr-str langs-info))
-
-(defn get-all-names [langs-info]
-  (pr-str (map :name langs-info)))
-
+(defn get-all-data
+  ([langs-info]
+   (pr-str langs-info))
+  ([langs-info info-type]
+   (->> langs-info
+        (map #(get % info-type))
+        (filter #(not (clojure.string/blank? %)))
+        pr-str)))
 
 (defroutes app
   (GET "/all-data" []
@@ -35,7 +37,19 @@
   (GET "/all-names" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
-        :body (get-all-names lang-data)})
+        :body (get-all-data lang-data :name)})
+  (GET "/all-paradigms" []
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (get-all-data lang-data :paradigm)})
+  (GET "/all-types" []
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (get-all-data lang-data :type)})
+  (GET "/all-uses" []
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (get-all-data lang-data :use)})
   (GET "/name" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "text/plain"}
