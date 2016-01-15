@@ -41,18 +41,21 @@
         :headers {"Content-Type" "text/plain"}
         :body (ctrl/get-info-by
                {:input-type :name :input-value input :all-info lang-data})})
-  ;; (GET "/get-by-paradigm" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:paradigm test-lang)})
-  ;; (GET "/type" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:type test-lang)})
-  ;; (GET "/use" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:use test-lang)})
+  (GET "/paradigm" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :paradigm :input-value input :all-info lang-data})})
+  (GET "/type" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :type :input-value input :all-info lang-data})})
+  (GET "/use" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :use :input-value input :all-info lang-data})})
   (GET "/" []
        (splash))
   (ANY "*" []
