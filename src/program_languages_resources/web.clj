@@ -6,12 +6,13 @@
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [clojure.edn :as edn]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json]
+            [program-languages-resources.controller :as ctrl]))
 
 (defn splash []
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body "Programming languages resources"})
+   :body "Programming languages resources API"})
 
 (def lang-data
   (edn/read-string
@@ -19,16 +20,14 @@
     (io/file
      "resources/data/programming-languages-resources.edn"))))
 
-(defn get-all-data [langs-info]
-  (pr-str langs-info))
-
-(defn get-all-names [langs-info]
-  (pr-str (map :name langs-info)))
-
-(defn get-by-name [name langs-info]
-  (pr-str
-   (filter #(= name (:name %))
-           langs-info)))
+(defn get-all-data
+  ([langs-info]
+   (pr-str langs-info))
+  ([langs-info info-type]
+   (->> langs-info
+        (map #(get % info-type))
+        (filter #(not (clojure.string/blank? %)))
+        pr-str)))
 
 (defroutes app
   (GET "/all-data" []
@@ -38,23 +37,39 @@
   (GET "/all-names" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
-        :body (get-all-names lang-data)})
-  (GET "/get-by-name" {{input :input} :params}
+        :body (get-all-data lang-data :name)})
+  (GET "/all-paradigms" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
-        :body (get-by-name input lang-data)})
-  ;; (GET "/get-by-paradigm" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:paradigm test-lang)})
-  ;; (GET "/type" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:type test-lang)})
-  ;; (GET "/use" {{input :input} :params}
-  ;;      {:status 200
-  ;;       :headers {"Content-Type" "text/plain"}
-  ;;       :body (:use test-lang)})
+        :body (get-all-data lang-data :paradigm)})
+  (GET "/all-types" []
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (get-all-data lang-data :type)})
+  (GET "/all-uses" []
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (get-all-data lang-data :use)})
+  (GET "/name" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :name :input-value input :all-info lang-data})})
+  (GET "/paradigm" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :paradigm :input-value input :all-info lang-data})})
+  (GET "/type" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :type :input-value input :all-info lang-data})})
+  (GET "/use" {{input :input} :params}
+       {:status 200
+        :headers {"Content-Type" "text/plain"}
+        :body (ctrl/get-info-by
+               {:input-type :use :input-value input :all-info lang-data})})
   (GET "/" []
        (splash))
   (ANY "*" []

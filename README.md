@@ -1,12 +1,33 @@
 ## POTION-MAKING
 ###Programming language resources
 
-Minimal Clojure api deployed to Heroku: https://potion-making.herokuapp.com/
+####Minimal Clojure API deployed to Heroku: https://potion-making.herokuapp.com/
 
-try:
-* http://potion-making.herokuapp.com/all-names
-* http://potion-making.herokuapp.com/all-data
-* http://potion-making.herokuapp.com/get-by-name?input=Python
+You can try:
+
+* to get all info:
+
+`~$ GET http://potion-making.herokuapp.com/all-data`
+
+`~$ GET http://potion-making.herokuapp.com/all-names`
+
+`~$ GET http://potion-making.herokuapp.com/all-paradigms`
+
+`~$ GET http://potion-making.herokuapp.com/all-types`
+
+`~$ GET http://potion-making.herokuapp.com/all-uses`
+
+
+* To get info by type:
+
+`~$ GET http://potion-making.herokuapp.com/name?input=Python`
+
+`~$ GET http://potion-making.herokuapp.com/paradigm?input=Imperative`
+
+`~$ GET http://potion-making.herokuapp.com/type?input=static`
+
+`~$ GET http://potion-making.herokuapp.com/use?input=web`
+
 
 
 ________________________
