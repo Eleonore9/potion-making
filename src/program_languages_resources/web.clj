@@ -6,7 +6,8 @@
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [clojure.edn :as edn]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json]
+            [program-languages-resources.controller :as ctrl]))
 
 (defn splash []
   {:status 200
@@ -25,10 +26,6 @@
 (defn get-all-names [langs-info]
   (pr-str (map :name langs-info)))
 
-(defn get-by-name [name langs-info]
-  (pr-str
-   (filter #(= name (:name %))
-           langs-info)))
 
 (defroutes app
   (GET "/all-data" []
@@ -39,10 +36,11 @@
        {:status 200
         :headers {"Content-Type" "text/plain"}
         :body (get-all-names lang-data)})
-  (GET "/get-by-name" {{input :input} :params}
+  (GET "/name" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "text/plain"}
-        :body (get-by-name input lang-data)})
+        :body (ctrl/get-info-by
+               {:input-type :name :input-value input :all-info lang-data})})
   ;; (GET "/get-by-paradigm" {{input :input} :params}
   ;;      {:status 200
   ;;       :headers {"Content-Type" "text/plain"}
