@@ -12,7 +12,7 @@
 (defn splash []
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body "Programming languages resources"})
+   :body "Programming languages resources API"})
 
 (def lang-data
   (edn/read-string
