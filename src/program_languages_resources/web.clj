@@ -17,11 +17,10 @@
 
 
 (def lang-data
-  (map #(clojure.walk/stringify-keys %)
-   (edn/read-string
-    (slurp
-     (io/file
-      "resources/data/programming-languages-resources.edn")))))
+  (edn/read-string
+   (slurp
+    (io/file
+     "resources/data/programming-languages-resources.edn"))))
 
 (defn get-all-data
   ([langs-info]
@@ -29,14 +28,19 @@
   ([langs-info info-type]
    (->> langs-info
         (map #(get % info-type))
-        (filter #(not (clojure.string/blank? %)))
+        (filterv #(not (clojure.string/blank? %)))
+        set
+        vec
         pr-str)))
+
+(defn clean-json [json]
+  (mapv clojure.walk/stringify-keys json))
 
 (defroutes app
   (GET "/all-data" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
-        :body (get-all-data lang-data)})
+        :body (get-all-data (clean-json lang-data))})
   (GET "/all-names" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
