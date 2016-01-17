@@ -36,7 +36,7 @@
 (defn clean-json [json]
   (mapv clojure.walk/stringify-keys json))
 
-(defroutes app
+(defroutes app-routes
   (GET "/all-data" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
@@ -82,10 +82,10 @@
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
-(def handler
-  (wrap-cors app
-             :access-control-allow-origin [#"https://eleonore9.github.io"]
-             :access-control-allow-methods [:get]))
+(def app
+  (-> app-routes
+      (wrap-cors :access-control-allow-origin [#".*"]
+                 :access-control-allow-methods [:get])))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
