@@ -12,7 +12,7 @@
   (let [{:keys [input-type input-value all-info]}
         input-info]
     (pr-str
-     (filter #(= input-value (:name %))
+     (filterv #(= input-value (:name %))
              all-info))))
 
 (defmethod get-info-by :paradigm
@@ -20,7 +20,7 @@
   (let [{:keys [input-type input-value all-info]}
         input-info]
     (pr-str
-     (filter #(= input-value (:paradigm %))
+     (filterv #(= input-value (:paradigm %))
              all-info))))
 
 (defmethod get-info-by :type
@@ -28,7 +28,7 @@
   (let [{:keys [input-type input-value all-info]}
         input-info]
     (pr-str
-     (filter #(= input-value (:type %))
+     (filterv #(= input-value (:type %))
              all-info))))
 
 (defmethod get-info-by :use
@@ -36,7 +36,7 @@
   (let [{:keys [input-type input-value all-info]}
         input-info]
     (pr-str
-     (filter #(not (clojure.string/blank?
+     (filterv #(not (clojure.string/blank?
                     (re-find (re-pattern input-value) (:use %))))
              all-info))))
 
