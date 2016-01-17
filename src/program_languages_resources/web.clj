@@ -84,8 +84,7 @@
 
 (def handler
   (wrap-cors app
-             :access-control-allow-origin [#"http://github.io" #"http://github.com"
-                                           #"https://github.io" #"https://github.com"]
+             :access-control-allow-origin [#"https://eleonore9.github.io"]
              :access-control-allow-methods [:get]))
 
 (defn -main [& [port]]
