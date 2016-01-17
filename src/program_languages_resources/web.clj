@@ -7,6 +7,7 @@
             [environ.core :refer [env]]
             [clojure.edn :as edn]
             [clojure.data.json :as json]
+            [ring.middleware.cors :refer [wrap-cors]]
             [program-languages-resources.controller :as ctrl]))
 
 (defn splash []
@@ -14,11 +15,13 @@
    :headers {"Content-Type" "text/plain"}
    :body "Programming languages resources API"})
 
+
 (def lang-data
-  (edn/read-string
-   (slurp
-    (io/file
-     "resources/data/programming-languages-resources.edn"))))
+  (map #(clojure.walk/stringify-keys %)
+   (edn/read-string
+    (slurp
+     (io/file
+      "resources/data/programming-languages-resources.edn")))))
 
 (defn get-all-data
   ([langs-info]
@@ -74,6 +77,12 @@
        (splash))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
+
+(def handler
+  (wrap-cors app
+             :access-control-allow-origin [#"http://github.io" #"http://github.com"
+                                           #"https://github.io" #"https://github.com"]
+             :access-control-allow-methods [:get]))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
