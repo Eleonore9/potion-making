@@ -38,43 +38,51 @@
 (defroutes app
   (GET "/all-data" []
        {:status 200
-        :headers {"Content-Type" "text/plain"}
-        :access-control-allow-origin [#"https://eleonore9.github.io"]
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (get-all-data (clean-json lang-data))})
   (GET "/all-names" []
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (get-all-data lang-data :name)})
   (GET "/all-paradigms" []
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (get-all-data lang-data :paradigm)})
   (GET "/all-types" []
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (get-all-data lang-data :type)})
   (GET "/all-uses" []
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (get-all-data lang-data :use)})
   (GET "/name" {{input :input} :params}
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (ctrl/get-info-by
                {:input-type :name :input-value input :all-info lang-data})})
   (GET "/paradigm" {{input :input} :params}
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (ctrl/get-info-by
                {:input-type :paradigm :input-value input :all-info lang-data})})
   (GET "/type" {{input :input} :params}
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (ctrl/get-info-by
                {:input-type :type :input-value input :all-info lang-data})})
   (GET "/use" {{input :input} :params}
        {:status 200
-        :headers {"Content-Type" "text/plain"}
+        :headers {"Content-Type" "application/json"
+                  "Access-Control-Allow-Origin" "*"}
         :body (ctrl/get-info-by
                {:input-type :use :input-value input :all-info lang-data})})
   (GET "/" []
