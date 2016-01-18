@@ -7,7 +7,6 @@
             [environ.core :refer [env]]
             [clojure.edn :as edn]
             [clojure.data.json :as json]
-            [ring.middleware.cors :refer [wrap-cors]]
             [program-languages-resources.controller :as ctrl]))
 
 (defn splash []
@@ -36,10 +35,11 @@
 (defn clean-json [json]
   (mapv clojure.walk/stringify-keys json))
 
-(defroutes app-routes
+(defroutes app
   (GET "/all-data" []
        {:status 200
         :headers {"Content-Type" "text/plain"}
+        :access-control-allow-origin [#"https://eleonore9.github.io"]
         :body (get-all-data (clean-json lang-data))})
   (GET "/all-names" []
        {:status 200
@@ -82,10 +82,6 @@
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
-(def app
-  (-> app-routes
-      (wrap-cors :access-control-allow-origin [#".*"]
-                 :access-control-allow-methods [:get])))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]

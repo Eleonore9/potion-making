@@ -9,8 +9,7 @@
                  [environ "1.0.0"]
                  [camel-snake-kebab "0.2.4"]
                  [org.clojure/data.json "0.2.6"]
-                 [org.clojure/data.csv "0.1.3"]
-                 [ring-cors "0.1.7"]]
+                 [org.clojure/data.csv "0.1.3"]]
   :min-lein-version "2.0.0"
   :plugins [[environ/environ.lein "0.3.1"]]
   :hooks [environ.leiningen.hooks]
