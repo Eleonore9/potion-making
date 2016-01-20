@@ -23,14 +23,16 @@
 
 (defn get-all-data
   ([langs-info]
-   (pr-str langs-info))
+   ;;(pr-str langs-info)
+   (json/write-str langs-info)
+   )
   ([langs-info info-type]
    (->> langs-info
         (map #(get % info-type))
         (filterv #(not (clojure.string/blank? %)))
         set
         vec
-        pr-str)))
+        json/write-str)))
 
 (defn clean-json [json]
   (mapv clojure.walk/stringify-keys json))
