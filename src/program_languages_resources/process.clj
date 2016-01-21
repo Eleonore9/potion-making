@@ -15,6 +15,15 @@
     #(clojure.string/replace % #" " "_"))
    key))
 
+(defn split-tutorials-links [d]
+  (update d :tutorials
+          (fn [s] (mapv #(.trim %)
+                        (clojure.string/split s #",")))))
+
+(defn clean-clj-data [data]
+  (mapv split-tutorials-links
+   data))
+
 (defn csv->clj-data
   "Load csv data into clojure"
   [csv-input]
@@ -31,8 +40,10 @@
 
 
 (defn csv->edn [in-path out-path]
-  (clj-data->edn (csv->clj-data in-path)
-                 out-path))
+  (-> in-path
+      csv->clj-data
+      clean-clj-data
+      (clj-data->edn out-path)))
 
 
 (comment

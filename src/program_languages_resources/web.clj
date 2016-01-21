@@ -24,8 +24,7 @@
 (defn get-all-data
   ([langs-info]
    ;;(pr-str langs-info)
-   (json/write-str langs-info)
-   )
+   (json/write-str langs-info :escape-slash false))
   ([langs-info info-type]
    (->> langs-info
         (map #(get % info-type))
