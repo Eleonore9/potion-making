@@ -1,6 +1,6 @@
 (defproject program-languages-resources "1.0.0-SNAPSHOT"
   :description "Demo Clojure web app"
-  :url "http://clojure-getting-started.herokuapp.com"
+  :url "http://potion-making.herokuapp.com/"
   :license {:name "Eclipse Public License v1.0"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.7.0"]

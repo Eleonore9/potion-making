@@ -1,6 +1,6 @@
 {
-  "name": "Programming languages resources",
-  "description": "A barebones Clojure app, which can easily be deployed to Heroku.",
+  "name": "Potion-making",
+  "description": "A mini Clojure api serving data on programming languages learning resources.",
   "image": "heroku/clojure",
   "addons": [ "heroku-postgresql" ]
 }
