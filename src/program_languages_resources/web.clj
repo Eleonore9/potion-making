@@ -94,7 +94,8 @@
         :body (ctrl/get-info-by
                {:input-type :use :input-value input :all-info lang-data})})
   (GET "/" []
-       (splash))
+       (splash)
+       (slurp (io/resource "index.html")))
   (ANY "*" []
        (route/not-found (slurp (io/resource "404.html")))))
 
