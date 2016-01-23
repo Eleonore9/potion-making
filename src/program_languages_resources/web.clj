@@ -22,28 +22,20 @@
      "resources/data/programming-languages-resources.edn"))))
 
 (defn get-all-data
-  ([langs-info info-type]
-   (->> langs-info
-        (map #(get % info-type))
-        (filterv #(not (clojure.string/blank? %)))
-        set
-        vec
-        ;;json/write-str
-        ))
-  ([langs-info info-type x] ;; used to parse languages use
-   (->> langs-info
-        (map #(get % info-type))
-        (filterv #(not (clojure.string/blank? %)))
-        set
-        (mapv #(clojure.string/split % #", "))
-        (apply concat)
-        set
-        vec
-        json/write-str)))
+  [langs-info info-type]
+  (->> langs-info
+       (map #(get % info-type))
+       (filterv #(not (clojure.string/blank? %)))
+       set
+       vec))
 
 (defn get-all-uses
   [langs-info info-type]
-  (get-all-data langs-info info-type))
+  (->> (get-all-data langs-info info-type)
+       (mapv #(clojure.string/split % #", "))
+       (apply concat)
+       set
+       vec))
 
 (defn to-json [data]
   (json/write-str data :escape-slash false))
@@ -76,7 +68,7 @@
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (get-all-data lang-data :use "parse")})
+        :body (to-json (get-all-uses lang-data :use))})
   (GET "/name" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "application/json"
