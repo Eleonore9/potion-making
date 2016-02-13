@@ -32,7 +32,15 @@ You can try:
 
 ________________________
 
+Built on top of Heroku's [clojure-getting-started](https://github.com/heroku/clojure-getting-started) app using Compojure and Ring.
+
 For more information about using Clojure on Heroku, see these Dev Center articles:
 
 - [Clojure on Heroku](https://devcenter.heroku.com/categories/clojure)
+
+
+
+-------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 
