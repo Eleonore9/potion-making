@@ -1,6 +1,10 @@
 ## POTION-MAKING
 ###Programming language resources
 
+
+[![Build Status](https://travis-ci.org/Eleonore9/potion-making.svg?branch=master)](https://travis-ci.org/Eleonore9/potion-making)
+
+
 ####Minimal Clojure API deployed to Heroku: https://potion-making.herokuapp.com/
 
 You can try:
