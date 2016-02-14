@@ -19,7 +19,7 @@
   (edn/read-string
    (slurp
     (io/file
-     "resources/data/programming-languages-resources-test.edn"))))
+     "resources/data/programming-languages-resources.edn"))))
 
 (defn get-all-data
   [langs-info info-type]
