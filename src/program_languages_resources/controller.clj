@@ -11,35 +11,29 @@
   [input-info]
   (let [{:keys [input-type input-value all-info]}
         input-info]
-    (pr-str
-     (filterv #(= input-value (:name %))
-             all-info))))
+    (filterv #(= input-value (:name %))
+             all-info)))
 
 (defmethod get-info-by :paradigm
   [input-info]
   (let [{:keys [input-type input-value all-info]}
         input-info]
-    (pr-str
-     (filterv #(= input-value (:paradigm %))
-             all-info))))
+    (filterv #(= input-value (:paradigm %))
+             all-info)))
 
 (defmethod get-info-by :type
   [input-info]
   (let [{:keys [input-type input-value all-info]}
         input-info]
-    (pr-str
-     (filterv #(= input-value (:type %))
-             all-info))))
+    (filterv #(= input-value (:type %))
+             all-info)))
 
 (defmethod get-info-by :use
   [input-info]
   (let [{:keys [input-type input-value all-info]}
         input-info]
-    (pr-str
-     (filterv #(not (clojure.string/blank?
-                    (re-find (re-pattern input-value) (:use %))))
-             all-info))))
-
+    (filterv (fn [m] (some #(= "web" %) (:use m)))
+             all-info)))
 
 (comment
   ;; from program-languages-resources.web ns

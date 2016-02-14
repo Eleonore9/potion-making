@@ -19,7 +19,7 @@
   (edn/read-string
    (slurp
     (io/file
-     "resources/data/programming-languages-resources.edn"))))
+     "resources/data/programming-languages-resources-test.edn"))))
 
 (defn get-all-data
   [langs-info info-type]
@@ -73,26 +73,26 @@
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (ctrl/get-info-by
-               {:input-type :name :input-value input :all-info lang-data})})
+        :body (to-json (ctrl/get-info-by
+                        {:input-type :name :input-value input :all-info lang-data}))})
   (GET "/paradigm" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (ctrl/get-info-by
-               {:input-type :paradigm :input-value input :all-info lang-data})})
+        :body (to-json (ctrl/get-info-by
+                        {:input-type :paradigm :input-value input :all-info lang-data}))})
   (GET "/type" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (ctrl/get-info-by
-               {:input-type :type :input-value input :all-info lang-data})})
+        :body (to-json (ctrl/get-info-by
+                        {:input-type :type :input-value input :all-info lang-data}))})
   (GET "/use" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (ctrl/get-info-by
-               {:input-type :use :input-value input :all-info lang-data})})
+        :body (to-json (ctrl/get-info-by
+                        {:input-type :use :input-value input :all-info lang-data}))})
   (GET "/" []
        (splash)
        (slurp (io/resource "index.html")))
