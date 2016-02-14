@@ -15,20 +15,26 @@
     #(clojure.string/replace % #" " "_"))
    key))
 
-(defn split-tutorials-links [d]
-  (update d :tutorials
-          (fn [s] (mapv #(.trim %)
-                        (clojure.string/split s #",")))))
+(defn string->vec-of-strings
+  "Takes in a map of data for one programming language.
+  Returns it with the tutorials data update from one 
+  string to a vector of string(s)."
+  [data-map key]
+  (update data-map key
+          (fn [tutorials-str] (mapv #(.trim %)
+                        (clojure.string/split tutorials-str #",")))))
 
 (defn clean-clj-data [data]
-  (mapv split-tutorials-links
-   data))
+  (mapv #(-> %
+             (string->vec-of-strings :tutorials)
+             (string->vec-of-strings :use))
+        data))
 
 (defn csv->clj-data
   "Load csv data into clojure"
   [csv-input]
   (let [data-seq (with-open [in-file (io/reader csv-input)]
-               (vec (csv/read-csv in-file)))]
+                   (vec (csv/read-csv in-file)))]
     (mapv #(zipmap (mapv format-key                          
                         (first data-seq)) %)
          (rest data-seq))))
