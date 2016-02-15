@@ -30,12 +30,12 @@
        vec))
 
 (defn get-all-uses
-  [langs-info info-type]
-  (->> (get-all-data langs-info info-type)
-       (mapv #(clojure.string/split % #", "))
-       (apply concat)
+  [langs-info]
+  (->> langs-info
+       (map #(:use %))
+       (reduce concat)
        set
-       vec))
+       (filterv #(not (clojure.string/blank? %)))))
 
 (defn to-json [data]
   (json/write-str data :escape-slash false))
@@ -68,7 +68,7 @@
        {:status 200
         :headers {"Content-Type" "application/json"
                   "Access-Control-Allow-Origin" "*"}
-        :body (to-json (get-all-uses lang-data :use))})
+        :body (to-json (get-all-uses lang-data))})
   (GET "/name" {{input :input} :params}
        {:status 200
         :headers {"Content-Type" "application/json"
