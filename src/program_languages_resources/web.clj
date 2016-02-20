@@ -22,6 +22,8 @@
      "resources/data/programming-languages-resources.edn"))))
 
 (defn get-all-data
+  "Takes the whole info and a keyword.
+  Returns the info for this keyword."
   [langs-info info-type]
   (->> langs-info
        (map #(get % info-type))
@@ -30,6 +32,8 @@
        vec))
 
 (defn get-all-uses
+  "Takes the whole info.
+  Retrieve the relevant info for :use."
   [langs-info]
   (->> langs-info
        (map #(:use %))
