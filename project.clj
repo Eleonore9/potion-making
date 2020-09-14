@@ -11,7 +11,7 @@
                  [org.clojure/data.json "1.0.0"]
                  [org.clojure/data.csv "1.0.0"]]
   :min-lein-version "2.0.0"
-  :plugins [[environ/environ.lein "1.2.0"]]
+  :plugins [[lein-environ/lein-environ "1.2.0"]]
   :hooks [environ.leiningen.hooks]
   :uberjar-name "program-languages-resources-standalone.jar"
   :profiles {:production {:env {:production true}}})
